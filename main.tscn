@@ -29,4 +29,23 @@ text = "123"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="CollectButton" type="Button" parent="HUD"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -62.0
+offset_top = -15.5
+offset_right = 62.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Collect Shinies!"
+
+[node name="collect_cooldown" type="Timer" parent="HUD/CollectButton"]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="timeout" from="tick_timer" to="." method="_on_tick_timer_timeout"]
+[connection signal="pressed" from="HUD/CollectButton" to="." method="_on_collect_button_pressed"]
