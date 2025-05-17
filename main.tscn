@@ -21,26 +21,30 @@ script = SubResource("GDScript_0xm2m")
 script = ExtResource("3_h2yge")
 
 [node name="HoardLabel" type="Label" parent="HUD"]
-anchors_preset = 5
+anchors_preset = -1
 anchor_left = 0.5
+anchor_top = 0.07
 anchor_right = 0.5
+anchor_bottom = 0.07
 offset_left = -48.0
-offset_top = 23.0
+offset_top = -22.36
 offset_right = 48.0
-offset_bottom = 68.0
+offset_bottom = 22.64
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 32
 text = "Hoard"
 horizontal_alignment = 1
 
 [node name="GP" type="Label" parent="HUD"]
-anchors_preset = 5
+anchors_preset = -1
 anchor_left = 0.5
+anchor_top = 0.149
 anchor_right = 0.5
+anchor_bottom = 0.149
 offset_left = -523.0
-offset_top = 50.0
+offset_top = -46.552
 offset_right = 524.0
-offset_bottom = 143.0
+offset_bottom = 46.448
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 68
 text = "123"
@@ -48,16 +52,26 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="KoboldCounter" type="Label" parent="HUD"]
-offset_left = 19.0
-offset_top = 213.0
-offset_right = 59.0
-offset_bottom = 236.0
+anchors_preset = -1
+anchor_left = 0.034
+anchor_top = 0.329
+anchor_right = 0.034
+anchor_bottom = 0.329
+offset_left = -20.168
+offset_top = -0.192017
+offset_right = 19.832
+offset_bottom = 22.808
 
 [node name="CollectGPLabel" type="Label" parent="HUD"]
-offset_left = 489.0
-offset_top = 345.0
-offset_right = 662.0
-offset_bottom = 394.0
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.57
+anchor_right = 0.5
+anchor_bottom = 0.57
+offset_left = -87.0
+offset_top = -24.36
+offset_right = 86.0
+offset_bottom = 24.64
 theme_override_font_sizes/font_size = 13
 text = "Currently gaining 1 GP
 on Manual Collect"
@@ -83,13 +97,15 @@ one_shot = true
 
 [node name="HireKobold" type="Button" parent="HUD"]
 visible = false
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 226.0
-offset_top = -130.0
-offset_right = 339.0
-offset_bottom = -76.0
+anchors_preset = -1
+anchor_left = 0.245
+anchor_top = 0.341
+anchor_right = 0.245
+anchor_bottom = 0.341
+offset_left = -56.24
+offset_top = -26.968
+offset_right = 56.76
+offset_bottom = 27.032
 grow_vertical = 2
 tooltip_text = "Hiring a kobold grants you
 +1 GP/s"
@@ -98,15 +114,15 @@ text = "Hire a Kobold
 
 [node name="Upgrade01" type="Button" parent="HUD"]
 visible = false
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -204.0
-offset_top = -130.0
-offset_right = -74.0
-offset_bottom = -76.0
+anchors_preset = -1
+anchor_left = 0.879
+anchor_top = 0.341
+anchor_right = 0.879
+anchor_bottom = 0.341
+offset_left = -64.6081
+offset_top = -26.968
+offset_right = 65.3919
+offset_bottom = 27.032
 grow_horizontal = 0
 grow_vertical = 2
 tooltip_text = "Increases Manual Collecting output by 2GP"
@@ -116,15 +132,15 @@ text = "Eye For Shinies
 
 [node name="Upgrade02" type="Button" parent="HUD"]
 visible = false
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -204.0
-offset_top = -74.0
-offset_right = -74.0
-offset_bottom = -20.0
+anchors_preset = -1
+anchor_left = 0.879
+anchor_top = 0.427
+anchor_right = 0.879
+anchor_bottom = 0.427
+offset_left = -64.6081
+offset_top = -26.696
+offset_right = 65.3919
+offset_bottom = 27.304
 grow_horizontal = 0
 grow_vertical = 2
 tooltip_text = "Increases Kobold GP/s by 50%"

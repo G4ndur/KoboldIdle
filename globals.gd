@@ -1,11 +1,12 @@
 extends Node
-var  GP = 200 
+var  GP = 0 
 #Manual Collecting
 var manualCollect = 1
 var manualCollectMult = 1
-var manualCollectCD = 5
+var manualCollectCD = 2.5
 var manualCollectCDMult = 1
 var manualCollectCounter = 0
+#Total GP Generation
 var gpGenPerSec = 0
 var gpGenPerSecMult = 1
 #Kobolds
