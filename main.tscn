@@ -20,18 +20,48 @@ script = SubResource("GDScript_0xm2m")
 [node name="HUD" type="CanvasLayer" parent="."]
 script = ExtResource("3_h2yge")
 
-[node name="Hoard" type="Label" parent="HUD"]
+[node name="HoardLabel" type="Label" parent="HUD"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -523.5
-offset_right = 523.5
-offset_bottom = 137.0
+offset_left = -48.0
+offset_top = 23.0
+offset_right = 48.0
+offset_bottom = 68.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 100
+theme_override_font_sizes/font_size = 32
+text = "Hoard"
+horizontal_alignment = 1
+
+[node name="GP" type="Label" parent="HUD"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -523.0
+offset_top = 50.0
+offset_right = 524.0
+offset_bottom = 143.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 68
 text = "123"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="KoboldCounter" type="Label" parent="HUD"]
+offset_left = 19.0
+offset_top = 213.0
+offset_right = 59.0
+offset_bottom = 236.0
+
+[node name="CollectGPLabel" type="Label" parent="HUD"]
+offset_left = 489.0
+offset_top = 345.0
+offset_right = 662.0
+offset_bottom = 394.0
+theme_override_font_sizes/font_size = 13
+text = "Currently gaining 1 GP
+on Manual Collect"
+horizontal_alignment = 1
 
 [node name="CollectButton" type="Button" parent="HUD"]
 anchors_preset = 8
@@ -40,9 +70,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -62.0
-offset_top = -15.5
+offset_top = -20.5
 offset_right = 62.0
-offset_bottom = 15.5
+offset_bottom = 10.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "Collect Shinies!"
@@ -56,16 +86,54 @@ visible = false
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 313.0
-offset_top = -27.0
-offset_right = 426.0
-offset_bottom = 27.0
+offset_left = 226.0
+offset_top = -130.0
+offset_right = 339.0
+offset_bottom = -76.0
 grow_vertical = 2
 tooltip_text = "Hiring a kobold grants you
 +1 GP/s"
 text = "Hire a Kobold
 10 GP"
 
+[node name="Upgrade01" type="Button" parent="HUD"]
+visible = false
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -204.0
+offset_top = -130.0
+offset_right = -74.0
+offset_bottom = -76.0
+grow_horizontal = 0
+grow_vertical = 2
+tooltip_text = "Increases Manual Collecting output by 2GP"
+disabled = true
+text = "Eye For Shinies
+15 GP"
+
+[node name="Upgrade02" type="Button" parent="HUD"]
+visible = false
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -204.0
+offset_top = -74.0
+offset_right = -74.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 2
+tooltip_text = "Increases Kobold GP/s by 50%"
+disabled = true
+text = "Kobold Training
+50 GP"
+
 [connection signal="timeout" from="tick_timer" to="." method="_on_tick_timer_timeout"]
 [connection signal="pressed" from="HUD/CollectButton" to="." method="_on_collect_button_pressed"]
 [connection signal="pressed" from="HUD/HireKobold" to="." method="_on_hire_kobold_pressed"]
+[connection signal="pressed" from="HUD/Upgrade01" to="." method="_on_upgrade_01_pressed"]
+[connection signal="pressed" from="HUD/Upgrade02" to="." method="_on_upgrade_02_pressed"]

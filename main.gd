@@ -7,7 +7,7 @@ func _ready() -> void:
 
 
 func _on_tick_timer_timeout() -> void:
-	$HUD.update_hoard(str(globals.GP).pad_decimals(0) )
+	$HUD.update_hoard(str(globals.GP).pad_decimals(0))
 	#adds gp per sec to current gp
 	globals.GP += globals.koboldGenPerSec /5.0
 	
@@ -20,29 +20,68 @@ func _on_tick_timer_timeout() -> void:
 		$HUD/CollectButton.disabled = false
 		$HUD/CollectButton.text = "Collect Shinies! \n"
 		
-	#Unlocks
-	if globals.GP >= 10:
+	#Generator Unlocks
+	if globals.GP >= 5:
 		$HUD/HireKobold.visible = true
 	
-	
+	#Upgrade Unlocks
+	if get_node_or_null("HUD/Upgrade01") == null:
+		pass
+	elif globals.GP >= 5:
+		$HUD/Upgrade01.visible = true
+	if get_node_or_null("HUD/Upgrade02") == null:
+		pass
+	elif globals.kobolds >= 5:
+		$HUD/Upgrade02.visible = true
 	#button disable
 	if globals.GP < globals.koboldPrice:
 		$HUD/HireKobold.disabled = true
 	else:
 		$HUD/HireKobold.disabled = false
 	
+	if get_node_or_null("HUD/Upgrade01") == null:
+		pass
+	elif globals.GP < 15:
+		$HUD/Upgrade01.disabled = true
+	else:
+		$HUD/Upgrade01.disabled = false
+	if get_node_or_null("HUD/Upgrade02") == null:
+		pass
+	elif globals.GP < 50:
+		$HUD/Upgrade02.disabled = true
+	else:
+		$HUD/Upgrade02.disabled = false
+	
 
 func _on_collect_button_pressed() -> void:
 	globals.GP += globals.manualCollect * globals.manualCollectMult
+	globals.manualCollectCounter += 1
 	$HUD/CollectButton/collect_cooldown.wait_time = globals.manualCollectCD * globals.manualCollectCDMult
 	$HUD/CollectButton/collect_cooldown.start()
 
 
 func _on_hire_kobold_pressed() -> void:
-	print("press")
 	globals.GP -= globals.koboldPrice
-	globals.koboldPrice *= 1.20
+	globals.kobolds += 1
+	var pricegrowth = 1.2 ** globals.kobolds
+	globals.koboldPrice = globals.KoboldBasePrice * pricegrowth
 	round(globals.koboldPrice)
 	$HUD/HireKobold.text = "Hire a Kobold\n"+ str(globals.koboldPrice).pad_decimals(0) + " GP"
-	globals.kobolds += 1
-	globals.koboldGenPerSec += globals.koboldGen * globals.koboldGenMult
+	globals.koboldGenPerSec =  globals.kobolds * globals.koboldGen * globals.koboldGenMult 
+	$HUD/KoboldCounter.text = "Kobolds: " + str(globals.kobolds) + "\n" + "Generating " + str(globals.koboldGenPerSec).pad_decimals(1) + " GP/s"	
+
+
+func _on_upgrade_01_pressed() -> void:
+	globals.GP -= 15
+	globals.manualCollect += 2
+	$HUD/CollectGPLabel.text = "Currently gaining 3 GP
+on Manual Collect"
+	$HUD/Upgrade01.queue_free()
+
+
+func _on_upgrade_02_pressed() -> void:
+	globals.GP -= 50
+	globals.koboldGenMult += 0.50
+	globals.koboldGenPerSec =  globals.kobolds * globals.koboldGen * globals.koboldGenMult 
+	$HUD/KoboldCounter.text = "Kobolds: " + str(globals.kobolds) + "\n" + "Generating " + str(globals.koboldGenPerSec).pad_decimals(1) + " GP/s"
+	$HUD/Upgrade02.queue_free()

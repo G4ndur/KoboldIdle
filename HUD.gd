@@ -1,3 +1,3 @@
 extends CanvasLayer
 func update_hoard(GP):
-	$Hoard.text = "Gold Pieces: " + str(GP)
+	$GP.text = "Gold Pieces: " + str(GP)
