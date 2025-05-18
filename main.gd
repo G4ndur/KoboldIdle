@@ -1,7 +1,18 @@
 extends Node2D
 class_name main
-
+var font = FontFile.new()
 func _ready() -> void:
+	font.font_data = load("res://alagard.woff2")
+	$HUD/HoardLabel.set("custom_fonts/font", font)
+	$HUD/GP.set("custom_fonts/font", font)
+	$HUD/CollectGPLabel.set("custom_fonts/font", font)
+	$HUD/CollectButton.set("custom_fonts/font", font)
+	$HUD/HireKobold.set("custom_fonts/font", font)
+	$HUD/KoboldCounter.set("custom_fonts/font", font)
+	$HUD/HireMiner.set("custom_fonts/font", font)
+	$HUD/MinerCounter.set("custom_fonts/font", font)
+	$HUD/Upgrade01.set("custom_fonts/font", font)
+	$HUD/Upgrade02.set("custom_fonts/font", font)
 	$tick_timer.start()
 
 
@@ -24,6 +35,9 @@ func _on_tick_timer_timeout() -> void:
 	if globals.GP >= 5:
 		$HUD/HireKobold.visible = true
 	
+	if globals.GP >= 75:
+		$HUD/HireMiner.visible = true
+	
 	#Upgrade Unlocks
 	if $HUD/Upgrade01.purchased == true:
 		pass
@@ -38,6 +52,10 @@ func _on_tick_timer_timeout() -> void:
 		$HUD/HireKobold.disabled = true
 	else:
 		$HUD/HireKobold.disabled = false
+	if globals.GP < globals.minerPrice:
+		$HUD/HireMiner.disabled = true
+	else:
+		$HUD/HireMiner.disabled = false
 	
 	if $HUD/Upgrade01.purchased == true:
 		pass
@@ -70,6 +88,21 @@ func _on_hire_kobold_pressed() -> void:
 	$HUD/HireKobold.text = "Hire a Kobold\n"+ str(globals.koboldPrice).pad_decimals(0) + " GP"
 	globals.koboldGenPerSec =  globals.kobolds * globals.koboldGen * globals.koboldGenMult 
 	$HUD/KoboldCounter.text = "Kobolds: " + str(globals.kobolds) + "\n" + "Generating " + str(globals.koboldGenPerSec).pad_decimals(1) + " GP/s"	
+
+func _on_hire_miner_pressed() -> void:
+	globals.GP -= globals.minerPrice
+	$HUD/HireMiner.disabled = true
+	globals.miners += 1
+	var pricegrowth = 1.2 ** globals.miners
+	globals.minerPrice = globals.minerBasePrice * pricegrowth
+	round(globals.minerPrice)
+	$HUD/HireMiner.text = "Hire a Miner\n" + str(globals.minerPrice).pad_decimals(0) + " GP"
+	globals.minerGenPerSec = globals.miners * globals.minerGen * globals.minerGenMult
+	if globals.minerGemChance >= 1:
+		$HUD/MinerCounter.text = "Miners: " + str(globals.miners) + "\n" + "Generating " + str(globals.minerGenPerSec).pad_decimals(1) + " GP/s" + "\n" + "With a chance of " + str(globals.minerGemChance).pad_decimals(2) + "% for a gem each second!" 
+	else:
+		$HUD/MinerCounter.text = "Miners: " + str(globals.miners) + "\n" + "Generating " + str(globals.minerGenPerSec).pad_decimals(1) + " GP/s"
+			
 
 
 func _on_upgrade_01_pressed() -> void:

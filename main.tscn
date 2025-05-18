@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://hydciqx85bjg" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://cjhv0lv25pbyy" path="res://globals.gd" id="2_h2yge"]
 [ext_resource type="Script" uid="uid://c7odrdun7qe2e" path="res://HUD.gd" id="3_h2yge"]
-[ext_resource type="FontFile" uid="uid://deass46modfmv" path="res://alagard.ttf" id="4_1bvp3"]
+[ext_resource type="FontFile" uid="uid://n2xs724sf6b4" path="res://alagard.woff2" id="4_7mycd"]
 [ext_resource type="Script" uid="uid://dvpfo6siaxmpb" path="res://upgrade_01.gd" id="5_7mycd"]
 [ext_resource type="Script" uid="uid://bmubg3spxrss0" path="res://upgrade_02.gd" id="6_272bh"]
 
@@ -34,7 +34,7 @@ offset_top = -22.36
 offset_right = 48.0
 offset_bottom = 22.64
 grow_horizontal = 2
-theme_override_fonts/font = ExtResource("4_1bvp3")
+theme_override_fonts/font = ExtResource("4_7mycd")
 theme_override_font_sizes/font_size = 32
 text = "Hoard"
 horizontal_alignment = 1
@@ -50,23 +50,11 @@ offset_top = -46.552
 offset_right = 524.0
 offset_bottom = 46.448
 grow_horizontal = 2
-theme_override_fonts/font = ExtResource("4_1bvp3")
+theme_override_fonts/font = ExtResource("4_7mycd")
 theme_override_font_sizes/font_size = 68
 text = "123"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="KoboldCounter" type="Label" parent="HUD"]
-anchors_preset = -1
-anchor_left = 0.034
-anchor_top = 0.329
-anchor_right = 0.034
-anchor_bottom = 0.329
-offset_left = -20.168
-offset_top = -0.192017
-offset_right = 19.832
-offset_bottom = 22.808
-theme_override_fonts/font = ExtResource("4_1bvp3")
 
 [node name="CollectGPLabel" type="Label" parent="HUD"]
 anchors_preset = -1
@@ -78,7 +66,7 @@ offset_left = -87.0
 offset_top = -24.36
 offset_right = 86.0
 offset_bottom = 24.64
-theme_override_fonts/font = ExtResource("4_1bvp3")
+theme_override_fonts/font = ExtResource("4_7mycd")
 theme_override_font_sizes/font_size = 13
 text = "Currently gaining 1 GP
 on Manual Collect"
@@ -96,7 +84,7 @@ offset_right = 62.0
 offset_bottom = 10.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("4_1bvp3")
+theme_override_fonts/font = ExtResource("4_7mycd")
 icon_alignment = 1
 
 [node name="collect_cooldown" type="Timer" parent="HUD/CollectButton"]
@@ -117,9 +105,48 @@ offset_bottom = 27.032
 grow_vertical = 2
 tooltip_text = "Hiring a kobold grants you
 +1 GP/s"
-theme_override_fonts/font = ExtResource("4_1bvp3")
+theme_override_fonts/font = ExtResource("4_7mycd")
 text = "Hire a Kobold
 10 GP"
+
+[node name="KoboldCounter" type="Label" parent="HUD"]
+anchors_preset = -1
+anchor_left = 0.024
+anchor_top = 0.346
+anchor_right = 0.024
+anchor_bottom = 0.346
+offset_left = -19.648
+offset_top = -11.208
+offset_right = 20.352
+offset_bottom = 11.792
+theme_override_fonts/font = ExtResource("4_7mycd")
+
+[node name="HireMiner" type="Button" parent="HUD"]
+visible = false
+anchors_preset = -1
+anchor_left = 0.245
+anchor_top = 0.427
+anchor_right = 0.245
+anchor_bottom = 0.427
+offset_left = -56.24
+offset_top = -26.696
+offset_right = 56.76
+offset_bottom = 27.304
+theme_override_fonts/font = ExtResource("4_7mycd")
+text = "Hire a Miner
+100 GP"
+
+[node name="MinerCounter" type="Label" parent="HUD"]
+anchors_preset = -1
+anchor_left = 0.024
+anchor_top = 0.43
+anchor_right = 0.024
+anchor_bottom = 0.43
+offset_left = -19.648
+offset_top = -11.64
+offset_right = 20.352
+offset_bottom = 11.36
+theme_override_fonts/font = ExtResource("4_7mycd")
 
 [node name="Upgrade01" type="Button" parent="HUD"]
 visible = false
@@ -135,7 +162,7 @@ offset_bottom = 27.032
 grow_horizontal = 0
 grow_vertical = 2
 tooltip_text = "Increases Manual Collecting output by 2GP"
-theme_override_fonts/font = ExtResource("4_1bvp3")
+theme_override_fonts/font = ExtResource("4_7mycd")
 disabled = true
 text = "Eye For Shinies
 15 GP"
@@ -155,7 +182,7 @@ offset_bottom = 27.304
 grow_horizontal = 0
 grow_vertical = 2
 tooltip_text = "Increases Kobold GP/s by 50%"
-theme_override_fonts/font = ExtResource("4_1bvp3")
+theme_override_fonts/font = ExtResource("4_7mycd")
 disabled = true
 text = "Kobold Training
 50 GP"
@@ -164,5 +191,6 @@ script = ExtResource("6_272bh")
 [connection signal="timeout" from="tick_timer" to="." method="_on_tick_timer_timeout"]
 [connection signal="pressed" from="HUD/CollectButton" to="." method="_on_collect_button_pressed"]
 [connection signal="pressed" from="HUD/HireKobold" to="." method="_on_hire_kobold_pressed"]
+[connection signal="pressed" from="HUD/HireMiner" to="." method="_on_hire_miner_pressed"]
 [connection signal="pressed" from="HUD/Upgrade01" to="." method="_on_upgrade_01_pressed"]
 [connection signal="pressed" from="HUD/Upgrade02" to="." method="_on_upgrade_02_pressed"]
