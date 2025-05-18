@@ -25,11 +25,11 @@ func _on_tick_timer_timeout() -> void:
 		$HUD/HireKobold.visible = true
 	
 	#Upgrade Unlocks
-	if get_node_or_null("HUD/Upgrade01") == null:
+	if $HUD/Upgrade01.purchased == true:
 		pass
 	elif globals.GP >= 5:
 		$HUD/Upgrade01.visible = true
-	if get_node_or_null("HUD/Upgrade02") == null:
+	if $HUD/Upgrade02.purchased == true:
 		pass
 	elif globals.kobolds >= 5:
 		$HUD/Upgrade02.visible = true
@@ -39,13 +39,13 @@ func _on_tick_timer_timeout() -> void:
 	else:
 		$HUD/HireKobold.disabled = false
 	
-	if get_node_or_null("HUD/Upgrade01") == null:
+	if $HUD/Upgrade01.purchased == true:
 		pass
 	elif globals.GP < 15:
 		$HUD/Upgrade01.disabled = true
 	else:
 		$HUD/Upgrade01.disabled = false
-	if get_node_or_null("HUD/Upgrade02") == null:
+	if $HUD/Upgrade02.purchased == true:
 		pass
 	elif globals.GP < 50:
 		$HUD/Upgrade02.disabled = true
@@ -62,6 +62,7 @@ func _on_collect_button_pressed() -> void:
 
 func _on_hire_kobold_pressed() -> void:
 	globals.GP -= globals.koboldPrice
+	$HUD/HireKobold.disabled = true
 	globals.kobolds += 1
 	var pricegrowth = 1.2 ** globals.kobolds
 	globals.koboldPrice = globals.KoboldBasePrice * pricegrowth
@@ -76,7 +77,8 @@ func _on_upgrade_01_pressed() -> void:
 	globals.manualCollect += 2
 	$HUD/CollectGPLabel.text = "Currently gaining 3 GP
 on Manual Collect"
-	$HUD/Upgrade01.queue_free()
+	$HUD/Upgrade01.purchased = true
+	$HUD/Upgrade01.visible = false
 
 
 func _on_upgrade_02_pressed() -> void:
@@ -84,4 +86,5 @@ func _on_upgrade_02_pressed() -> void:
 	globals.koboldGenMult += 0.50
 	globals.koboldGenPerSec =  globals.kobolds * globals.koboldGen * globals.koboldGenMult 
 	$HUD/KoboldCounter.text = "Kobolds: " + str(globals.kobolds) + "\n" + "Generating " + str(globals.koboldGenPerSec).pad_decimals(1) + " GP/s"
-	$HUD/Upgrade02.queue_free()
+	$HUD/Upgrade02.purchased = true
+	$HUD/Upgrade02.visible = false
