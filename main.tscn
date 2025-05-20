@@ -104,7 +104,7 @@ offset_right = 56.76
 offset_bottom = 27.032
 grow_vertical = 2
 tooltip_text = "Hiring a kobold grants you
-+1 GP/s"
++0.5 GP/s"
 theme_override_fonts/font = ExtResource("4_7mycd")
 text = "Hire a Kobold
 10 GP"
@@ -132,6 +132,8 @@ offset_left = -56.24
 offset_top = -26.696
 offset_right = 56.76
 offset_bottom = 27.304
+tooltip_text = "Hiring a miner grants you
++5 GP/s"
 theme_override_fonts/font = ExtResource("4_7mycd")
 text = "Hire a Miner
 100 GP"

@@ -1,5 +1,5 @@
 extends Node
-var GP 						= 50
+var GP 						= 0
 var gems					= 0
 #Manual Collecting
 var manualCollect 			= 1
@@ -20,7 +20,7 @@ var koboldGenPerSec 		= 0
 #Miner
 var miners 					= 0
 var minerBasePrice 			= 100
-var minerPrice 				= 10
+var minerPrice 				= 100
 var minerGen				= 5
 var minerGenMult			= 1
 var minerGenPerSec			= 0

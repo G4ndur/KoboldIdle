@@ -21,7 +21,7 @@ func _on_tick_timer_timeout() -> void:
 	$HUD.update_hoard(str(globals.GP).pad_decimals(0))
 	#adds gp per sec to current gp
 	globals.GP += globals.koboldGenPerSec /5.0
-	
+	globals.GP += globals.minerGenPerSec /5.0
 	#Manual Collect Cooldown
 	
 	if $HUD/CollectButton/collect_cooldown.is_stopped() == false:
@@ -80,22 +80,25 @@ func _on_collect_button_pressed() -> void:
 
 func _on_hire_kobold_pressed() -> void:
 	globals.GP -= globals.koboldPrice
-	$HUD/HireKobold.disabled = true
 	globals.kobolds += 1
 	var pricegrowth = 1.2 ** globals.kobolds
 	globals.koboldPrice = globals.KoboldBasePrice * pricegrowth
 	round(globals.koboldPrice)
+	if globals.GP < globals.koboldPrice:
+		$HUD/HireKobold.disabled = true
 	$HUD/HireKobold.text = "Hire a Kobold\n"+ str(globals.koboldPrice).pad_decimals(0) + " GP"
 	globals.koboldGenPerSec =  globals.kobolds * globals.koboldGen * globals.koboldGenMult 
 	$HUD/KoboldCounter.text = "Kobolds: " + str(globals.kobolds) + "\n" + "Generating " + str(globals.koboldGenPerSec).pad_decimals(1) + " GP/s"	
 
 func _on_hire_miner_pressed() -> void:
 	globals.GP -= globals.minerPrice
-	$HUD/HireMiner.disabled = true
+	
 	globals.miners += 1
 	var pricegrowth = 1.2 ** globals.miners
 	globals.minerPrice = globals.minerBasePrice * pricegrowth
 	round(globals.minerPrice)
+	if globals.GP < globals.minerPrice:
+		$HUD/HireMiner.disabled = true
 	$HUD/HireMiner.text = "Hire a Miner\n" + str(globals.minerPrice).pad_decimals(0) + " GP"
 	globals.minerGenPerSec = globals.miners * globals.minerGen * globals.minerGenMult
 	if globals.minerGemChance >= 1:
@@ -119,5 +122,6 @@ func _on_upgrade_02_pressed() -> void:
 	globals.koboldGenMult += 0.50
 	globals.koboldGenPerSec =  globals.kobolds * globals.koboldGen * globals.koboldGenMult 
 	$HUD/KoboldCounter.text = "Kobolds: " + str(globals.kobolds) + "\n" + "Generating " + str(globals.koboldGenPerSec).pad_decimals(1) + " GP/s"
+	$HUD/HireKobold.tooltip_text = "Hiring a kobold grants you +"+ str(globals.koboldGen * globals.koboldGenMult) + "GP/s"
 	$HUD/Upgrade02.purchased = true
 	$HUD/Upgrade02.visible = false
