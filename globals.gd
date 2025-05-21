@@ -1,10 +1,10 @@
 extends Node
-var GP 						= 0
-var gems					= 0
+var GP 						= 2000
+var gems					= 10
 #Manual Collecting
 var manualCollect 			= 1
 var manualCollectMult 		= 1
-var manualCollectCD 		= 2.5
+var manualCollectCD 		= 3
 var manualCollectCDMult 	= 1
 var manualCollectCounter 	= 0
 #Total GP Generation

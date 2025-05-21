@@ -1,24 +1,34 @@
-[gd_scene load_steps=8 format=3 uid="uid://c1l10anjsy4jy"]
+[gd_scene load_steps=18 format=3 uid="uid://c1l10anjsy4jy"]
 
 [ext_resource type="Script" uid="uid://hydciqx85bjg" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://cjhv0lv25pbyy" path="res://globals.gd" id="2_h2yge"]
 [ext_resource type="Script" uid="uid://c7odrdun7qe2e" path="res://HUD.gd" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://fnl5y6kq75rs" path="res://generators.gd" id="3_kek77"]
 [ext_resource type="FontFile" uid="uid://n2xs724sf6b4" path="res://alagard.woff2" id="4_7mycd"]
+[ext_resource type="Texture2D" uid="uid://jlld8sy5onuv" path="res://Buttonpressed.png" id="5_5vw27"]
 [ext_resource type="Script" uid="uid://dvpfo6siaxmpb" path="res://upgrade_01.gd" id="5_7mycd"]
 [ext_resource type="Script" uid="uid://bmubg3spxrss0" path="res://upgrade_02.gd" id="6_272bh"]
+[ext_resource type="Texture2D" uid="uid://4ybnivvwjegp" path="res://Buttonunpressed.png" id="6_kek77"]
+[ext_resource type="Script" uid="uid://csoyxbeukdi4v" path="res://upgrade_03.gd" id="8_dg77c"]
+[ext_resource type="Script" uid="uid://0nbdhr5n87ek" path="res://upgrade_04.gd" id="8_efxa6"]
+[ext_resource type="Script" uid="uid://d08l22r5dn8du" path="res://upgrades.gd" id="10_4c57u"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5vw27"]
+texture = ExtResource("5_5vw27")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kek77"]
+texture = ExtResource("6_kek77")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4c57u"]
+texture = ExtResource("5_5vw27")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_efxa6"]
+texture = ExtResource("6_kek77")
 
 [sub_resource type="GDScript" id="GDScript_0xm2m"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_0xm2m")
-
-[node name="globals" type="Node" parent="."]
-script = ExtResource("2_h2yge")
-
-[node name="tick_timer" type="Timer" parent="."]
-process_mode = 3
-wait_time = 0.2
-script = SubResource("GDScript_0xm2m")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 script = ExtResource("3_h2yge")
@@ -30,9 +40,9 @@ anchor_top = 0.07
 anchor_right = 0.5
 anchor_bottom = 0.07
 offset_left = -48.0
-offset_top = -22.36
+offset_top = -24.36
 offset_right = 48.0
-offset_bottom = 22.64
+offset_bottom = 20.64
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("4_7mycd")
 theme_override_font_sizes/font_size = 32
@@ -45,63 +55,111 @@ anchor_left = 0.5
 anchor_top = 0.149
 anchor_right = 0.5
 anchor_bottom = 0.149
-offset_left = -523.0
+offset_left = -236.0
 offset_top = -46.552
-offset_right = 524.0
+offset_right = 239.0
 offset_bottom = 46.448
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("4_7mycd")
-theme_override_font_sizes/font_size = 68
+theme_override_font_sizes/font_size = 48
 text = "123"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Gems" type="Label" parent="HUD"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.311
+anchor_right = 0.5
+anchor_bottom = 0.311
+offset_left = -237.0
+offset_top = -46.528
+offset_right = 238.0
+offset_bottom = 46.472
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_7mycd")
+theme_override_font_sizes/font_size = 48
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TotalGPps" type="Label" parent="HUD"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.211
+anchor_right = 0.5
+anchor_bottom = 0.211
+offset_left = -71.0
+offset_top = -10.728
+offset_right = 68.0
+offset_bottom = 11.272
+theme_override_fonts/font = ExtResource("4_7mycd")
+theme_override_font_sizes/font_size = 16
+text = "Generating x GP/s"
+
 [node name="CollectGPLabel" type="Label" parent="HUD"]
 anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.57
+anchor_top = 0.358
 anchor_right = 0.5
-anchor_bottom = 0.57
+anchor_bottom = 0.358
 offset_left = -87.0
-offset_top = -24.36
+offset_top = 85.516
 offset_right = 86.0
-offset_bottom = 24.64
+offset_bottom = 134.516
 theme_override_fonts/font = ExtResource("4_7mycd")
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 16
 text = "Currently gaining 1 GP
 on Manual Collect"
 horizontal_alignment = 1
 
 [node name="CollectButton" type="Button" parent="HUD"]
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 0.272
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -62.0
-offset_top = -20.5
-offset_right = 62.0
-offset_bottom = 10.5
+anchor_bottom = 0.272
+offset_left = -65.0
+offset_top = 89.744
+offset_right = 72.0
+offset_bottom = 130.744
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("4_7mycd")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_5vw27")
+theme_override_styles/hover = SubResource("StyleBoxTexture_kek77")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_4c57u")
+theme_override_styles/normal = SubResource("StyleBoxTexture_efxa6")
 icon_alignment = 1
 
 [node name="collect_cooldown" type="Timer" parent="HUD/CollectButton"]
 wait_time = 5.0
 one_shot = true
 
+[node name="GensLbl" type="Label" parent="HUD"]
+anchors_preset = -1
+anchor_left = 0.239
+anchor_top = 0.052
+anchor_right = 0.239
+anchor_bottom = 0.052
+offset_left = -86.328
+offset_top = -15.696
+offset_right = 83.672
+offset_bottom = 14.304
+theme_override_fonts/font = ExtResource("4_7mycd")
+theme_override_font_sizes/font_size = 32
+text = "GP Increase"
+
 [node name="HireKobold" type="Button" parent="HUD"]
 visible = false
 anchors_preset = -1
 anchor_left = 0.245
-anchor_top = 0.341
+anchor_top = 0.151
 anchor_right = 0.245
-anchor_bottom = 0.341
-offset_left = -56.24
-offset_top = -26.968
-offset_right = 56.76
-offset_bottom = 27.032
+anchor_bottom = 0.151
+offset_left = -57.24
+offset_top = -26.848
+offset_right = 55.76
+offset_bottom = 27.152
 grow_vertical = 2
 tooltip_text = "Hiring a kobold grants you
 +0.5 GP/s"
@@ -111,27 +169,27 @@ text = "Hire a Kobold
 
 [node name="KoboldCounter" type="Label" parent="HUD"]
 anchors_preset = -1
-anchor_left = 0.024
-anchor_top = 0.346
-anchor_right = 0.024
-anchor_bottom = 0.346
-offset_left = -19.648
-offset_top = -11.208
-offset_right = 20.352
-offset_bottom = 11.792
+anchor_left = 0.023
+anchor_top = 0.157
+anchor_right = 0.023
+anchor_bottom = 0.157
+offset_left = -19.496
+offset_top = -11.736
+offset_right = 20.504
+offset_bottom = 11.264
 theme_override_fonts/font = ExtResource("4_7mycd")
 
 [node name="HireMiner" type="Button" parent="HUD"]
 visible = false
 anchors_preset = -1
-anchor_left = 0.245
-anchor_top = 0.427
-anchor_right = 0.245
-anchor_bottom = 0.427
-offset_left = -56.24
-offset_top = -26.696
-offset_right = 56.76
-offset_bottom = 27.304
+anchor_left = 0.244
+anchor_top = 0.238
+anchor_right = 0.244
+anchor_bottom = 0.238
+offset_left = -56.088
+offset_top = -27.224
+offset_right = 56.912
+offset_bottom = 26.776
 tooltip_text = "Hiring a miner grants you
 +5 GP/s"
 theme_override_fonts/font = ExtResource("4_7mycd")
@@ -140,27 +198,41 @@ text = "Hire a Miner
 
 [node name="MinerCounter" type="Label" parent="HUD"]
 anchors_preset = -1
-anchor_left = 0.024
-anchor_top = 0.43
-anchor_right = 0.024
-anchor_bottom = 0.43
-offset_left = -19.648
-offset_top = -11.64
-offset_right = 20.352
-offset_bottom = 11.36
+anchor_left = 0.023
+anchor_top = 0.24
+anchor_right = 0.023
+anchor_bottom = 0.24
+offset_left = -19.496
+offset_top = -11.52
+offset_right = 20.504
+offset_bottom = 11.48
 theme_override_fonts/font = ExtResource("4_7mycd")
+
+[node name="UpgradesLbl" type="Label" parent="HUD"]
+anchors_preset = -1
+anchor_left = 0.891
+anchor_top = 0.059
+anchor_right = 0.891
+anchor_bottom = 0.059
+offset_left = -68.432
+offset_top = -15.232
+offset_right = 69.568
+offset_bottom = 14.768
+theme_override_fonts/font = ExtResource("4_7mycd")
+theme_override_font_sizes/font_size = 32
+text = "Upgrades"
 
 [node name="Upgrade01" type="Button" parent="HUD"]
 visible = false
 anchors_preset = -1
-anchor_left = 0.879
-anchor_top = 0.341
-anchor_right = 0.879
-anchor_bottom = 0.341
-offset_left = -64.6081
-offset_top = -26.968
-offset_right = 65.3919
-offset_bottom = 27.032
+anchor_left = 0.893
+anchor_top = 0.151
+anchor_right = 0.893
+anchor_bottom = 0.151
+offset_left = -64.7361
+offset_top = -26.848
+offset_right = 65.2639
+offset_bottom = 27.152
 grow_horizontal = 0
 grow_vertical = 2
 tooltip_text = "Increases Manual Collecting output by 2GP"
@@ -173,14 +245,14 @@ script = ExtResource("5_7mycd")
 [node name="Upgrade02" type="Button" parent="HUD"]
 visible = false
 anchors_preset = -1
-anchor_left = 0.879
-anchor_top = 0.427
-anchor_right = 0.879
-anchor_bottom = 0.427
-offset_left = -64.6081
-offset_top = -26.696
-offset_right = 65.3919
-offset_bottom = 27.304
+anchor_left = 0.893
+anchor_top = 0.238
+anchor_right = 0.893
+anchor_bottom = 0.238
+offset_left = -64.7361
+offset_top = -27.224
+offset_right = 65.2639
+offset_bottom = 26.776
 grow_horizontal = 0
 grow_vertical = 2
 tooltip_text = "Increases Kobold GP/s by 50%"
@@ -190,9 +262,88 @@ text = "Kobold Training
 50 GP"
 script = ExtResource("6_272bh")
 
+[node name="Upgrade03" type="Button" parent="HUD"]
+visible = false
+anchors_preset = -1
+anchor_left = 0.893
+anchor_top = 0.324
+anchor_right = 0.893
+anchor_bottom = 0.324
+offset_left = -64.736
+offset_top = -26.952
+offset_right = 65.2639
+offset_bottom = 27.048
+grow_horizontal = 0
+grow_vertical = 2
+tooltip_text = "Decreases Manual Collect Cooldown
+by 1 second"
+theme_override_fonts/font = ExtResource("4_7mycd")
+disabled = true
+text = "Quick Hands
+150 GP"
+script = ExtResource("8_dg77c")
+
+[node name="Upgrade04" type="Button" parent="HUD"]
+visible = false
+anchors_preset = -1
+anchor_left = 0.893
+anchor_top = 0.41
+anchor_right = 0.893
+anchor_bottom = 0.41
+offset_left = -64.736
+offset_top = -26.68
+offset_right = 65.2639
+offset_bottom = 27.32
+grow_horizontal = 0
+grow_vertical = 2
+tooltip_text = "Gives each miner a 1% chance to get 1 Gem per second"
+theme_override_fonts/font = ExtResource("4_7mycd")
+disabled = true
+text = "Prospecting
+500 GP"
+script = ExtResource("8_efxa6")
+
+[node name="Upgrade05" type="Button" parent="HUD"]
+visible = false
+anchors_preset = -1
+anchor_left = 0.893
+anchor_top = 0.41
+anchor_right = 0.893
+anchor_bottom = 0.41
+offset_left = -63.7361
+offset_top = -25.68
+offset_right = 66.2639
+offset_bottom = 28.32
+grow_horizontal = 0
+grow_vertical = 2
+tooltip_text = "Increases your Manual Collection by 10% of your current GP/s
+NAME IS NOT FINAL"
+theme_override_fonts/font = ExtResource("4_7mycd")
+disabled = true
+text = "Increased MC
+10 Gems"
+script = ExtResource("8_efxa6")
+
+[node name="globals" type="Node" parent="."]
+script = ExtResource("2_h2yge")
+
+[node name="generators" type="Node" parent="."]
+script = ExtResource("3_kek77")
+
+[node name="upgrades" type="Node" parent="."]
+script = ExtResource("10_4c57u")
+
+[node name="tick_timer" type="Timer" parent="."]
+process_mode = 3
+wait_time = 0.2
+script = SubResource("GDScript_0xm2m")
+
+[connection signal="pressed" from="HUD/CollectButton" to="generators" method="_on_collect_button_pressed"]
+[connection signal="pressed" from="HUD/HireKobold" to="generators" method="_on_hire_kobold_pressed"]
+[connection signal="pressed" from="HUD/HireMiner" to="generators" method="_purchaseMiner"]
+[connection signal="pressed" from="HUD/Upgrade01" to="upgrades" method="_upgrade01Purchase"]
+[connection signal="pressed" from="HUD/Upgrade02" to="upgrades" method="_upgrade02Purchase"]
+[connection signal="pressed" from="HUD/Upgrade03" to="upgrades" method="_upgrade03Purchase"]
+[connection signal="pressed" from="HUD/Upgrade04" to="upgrades" method="_upgrade04Purchase"]
+[connection signal="pressed" from="HUD/Upgrade05" to="upgrades" method="_upgrade05Purchase"]
 [connection signal="timeout" from="tick_timer" to="." method="_on_tick_timer_timeout"]
-[connection signal="pressed" from="HUD/CollectButton" to="." method="_on_collect_button_pressed"]
-[connection signal="pressed" from="HUD/HireKobold" to="." method="_on_hire_kobold_pressed"]
-[connection signal="pressed" from="HUD/HireMiner" to="." method="_on_hire_miner_pressed"]
-[connection signal="pressed" from="HUD/Upgrade01" to="." method="_on_upgrade_01_pressed"]
-[connection signal="pressed" from="HUD/Upgrade02" to="." method="_on_upgrade_02_pressed"]
