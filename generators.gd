@@ -27,7 +27,7 @@ func generateGPPerTick():
 	calcGPS()
 	get_node("../HUD/TotalGPps").text = "Generating "+ str(globals.gpGenPerSec) + " GP/s"
 	#adds gp per sec to current gp
-	globals.GP += globals.koboldGenPerSec + globals.minerGenPerSec /5.0
+	globals.GP += globals.koboldGenPerSec/5.0 + globals.minerGenPerSec /5.0
 	#add gems
 	if get_node("../HUD/Upgrade04").purchased == true:
 		tickcount += 1

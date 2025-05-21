@@ -1,6 +1,6 @@
 extends Node
-var GP 						= 2000
-var gems					= 10
+var GP 						= 0
+var gems					= 0
 #Manual Collecting
 var manualCollect 			= 1
 var manualCollectMult 		= 1

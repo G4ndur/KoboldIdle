@@ -13,7 +13,7 @@ func unlockCheckUpg():
 	elif globals.kobolds >= 5: upgrade02.visible = true
 		
 	if upgrade03.purchased == true: pass
-	elif globals.manualCollectCounter >= 10: upgrade03.visible = true
+	elif globals.manualCollectCounter >= 15: upgrade03.visible = true
 	
 	if upgrade04.purchased == true: pass
 	elif globals.miners >= 5: upgrade04.visible = true
