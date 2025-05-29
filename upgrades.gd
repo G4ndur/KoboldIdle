@@ -7,26 +7,26 @@ extends Node
 
 func unlockCheckUpg():
 	if upgrade01.purchased == true: pass
-	elif globals.GP >= 5: upgrade01.visible = true
+	elif globals.GP.isGreaterThanOrEqualTo(5): upgrade01.visible = true
 		
 	if upgrade02.purchased == true: pass
-	elif globals.kobolds >= 5: upgrade02.visible = true
+	elif globals.kobolds.isGreaterThanOrEqualTo(5): upgrade02.visible = true
 		
 	if upgrade03.purchased == true: pass
-	elif globals.manualCollectCounter >= 15: upgrade03.visible = true
+	elif globals.manualCollectCounter.isGreaterThanOrEqualTo(15): upgrade03.visible = true
 	
 	if upgrade04.purchased == true: pass
-	elif globals.miners >= 5: upgrade04.visible = true
+	elif globals.miners.isGreaterThanOrEqualTo(5): upgrade04.visible = true
 	
 	if upgrade05.purchased == true: pass
-	elif globals.gems > 1: upgrade05.visible = true
+	elif globals.gems.isGreaterThanOrEqualTo(1): upgrade05.visible = true
 		
 
 func disableUpgBtnsPoor():
 	#Upgrade 1
 	if upgrade01.purchased == true:
 		pass
-	elif globals.GP < 15:
+	elif globals.GP.isLessThan(15):
 		upgrade01.disabled = true
 	else:
 		upgrade01.disabled = false
@@ -34,7 +34,7 @@ func disableUpgBtnsPoor():
 	#Upgrade 2
 	if upgrade02.purchased == true:
 		pass
-	elif globals.GP < 50:
+	elif globals.GP.isLessThan(50):
 		upgrade02.disabled = true
 	else:
 		upgrade02.disabled = false
@@ -42,7 +42,7 @@ func disableUpgBtnsPoor():
 	#Upgrade 3
 	if upgrade03.purchased == true:
 		pass
-	elif globals.GP < 150:
+	elif globals.GP.isLessThan(150):
 		upgrade03.disabled = true
 	else:
 		upgrade03.disabled = false
@@ -50,7 +50,7 @@ func disableUpgBtnsPoor():
 	#Upgrade 4
 	if upgrade04.purchased == true:
 		pass
-	elif globals.GP < 500:
+	elif globals.GP.isLessThan(500):
 		upgrade04.disabled = true
 	else:
 		upgrade04.disabled = false
@@ -58,15 +58,15 @@ func disableUpgBtnsPoor():
 	#Upgrade 5
 	if upgrade05.purchased == true:
 		pass
-	elif globals.gems < 10:
+	elif globals.gems.isLessThan(10):
 		upgrade05.disabled = true
 	else:
 		upgrade05.disabled = false
 		
 
 func _upgrade01Purchase() -> void:
-	globals.GP -= 15
-	globals.manualCollect += 2
+	globals.GP.minusEquals(15)
+	globals.manualCollect.plusEquals(2)
 	get_node("../HUD/CollectGPLabel").text = "Currently gaining 3 GP
 on Manual Collect"
 	upgrade01.purchased = true

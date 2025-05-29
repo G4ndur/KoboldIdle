@@ -3,6 +3,7 @@ class_name main
 var font = FontFile.new()
 func _ready() -> void:
 	fontLoad()
+	setDecimals()
 	$tick_timer.start()
 
 func _on_tick_timer_timeout() -> void:
@@ -35,3 +36,7 @@ func fontLoad():
 	$HUD/Upgrade03.set("custom_fonts/font", font)
 	$HUD/Upgrade04.set("custom_fonts/font", font)
 	$HUD/Upgrade05.set("custom_fonts/font", font)
+	
+func setDecimals():
+	globals.GP.setSuffixSeparator(" ")
+	globals.GP.setSmallDecimals(0)

@@ -14,20 +14,19 @@ func manualCollectCD():
 		collectBtn.text = "Collect Shinies! \n"
 		
 func calcGPS():
-	globals.gpGenPerSec = globals.koboldGenPerSec + globals.minerGenPerSec
+	globals.gpGenPerSec = globals.koboldGenPerSec.plus(globals.minerGenPerSec) 
 #Base Function for automatic GP Generation
 func generateGPPerTick():
-	get_node("../HUD/GP").text = "Gold Pieces: " + str(globals.GP).pad_decimals(0)
-	if get_node("../HUD/Upgrade05").purchased == true:
-		get_node("../HUD/CollectGPLabel").text = "Currently gaining "+ str(globals.manualCollect * globals.manualCollectMult + (globals.koboldGenPerSec / 10.0) + (globals.minerGenPerSec / 10.0)) +" GP
-		on Manual Collect"
+	get_node("../HUD/GP").text = "Gold Pieces: " + str(globals.GP.toMetricSymbol())
+	if get_node("../HUD/Upgrade05").purchased == true: #globals.manualCollect * globals.manualCollectMult + (globals.koboldGenPerSec / 10.0) + (globals.minerGenPerSec / 10.0))
+		get_node("../HUD/CollectGPLabel").text = "Currently gaining "+ str(globals.manualCollect.multiply(globals.manualCollectMult.plus(globals.koboldGenPerSec.divide(10).plus(globals.minerGenPerSec.divide(10)))).toMetricSymbol) + " GP on Manual Collect"
 	else:
-		get_node("../HUD/CollectGPLabel").text = "Currently gaining "+ str(globals.manualCollect * globals.manualCollectMult) +" GP
+		get_node("../HUD/CollectGPLabel").text = "Currently gaining "+ str(globals.manualCollect.multiply(globals.manualCollectMult).toMetricSymbol() ) +" GP
 		on Manual Collect"
 	calcGPS()
-	get_node("../HUD/TotalGPps").text = "Generating "+ str(globals.gpGenPerSec) + " GP/s"
+	get_node("../HUD/TotalGPps").text = "Generating "+ str(globals.gpGenPerSec.toMetricName()) + " GP/s"
 	#adds gp per sec to current gp
-	globals.GP += globals.koboldGenPerSec/5.0 + globals.minerGenPerSec /5.0
+	globals.GP = globals.GP.plus(globals.koboldGenPerSec.divide(0.5).plus(globals.minerGenPerSec.divide(5.0))) 
 	#add gems
 	if get_node("../HUD/Upgrade04").purchased == true:
 		tickcount += 1
@@ -43,18 +42,18 @@ func generateGPPerTick():
 		pass
 #Unlock checker
 func unlockCheckGens():
-	if globals.GP >= 5:
+	if globals.GP.isGreaterThanOrEqualTo(5):
 		get_node("../HUD/HireKobold").visible = true
 	
-	if globals.GP >= 75:
+	if globals.GP.isGreaterThanOrEqualTo(75):
 		get_node("../HUD/HireMiner").visible = true
 
 func disableGenBtnsPoor():
-	if globals.GP < globals.koboldPrice:
+	if globals.GP.isLessThan(globals.koboldPrice):
 		get_node("../HUD/HireKobold").disabled = true
 	else:
 		get_node("../HUD/HireKobold").disabled = false
-	if globals.GP < globals.minerPrice:
+	if globals.GP.isLessThan(globals.minerPrice) :
 		get_node("../HUD/HireMiner").disabled = true
 	else:
 		get_node("../HUD/HireMiner").disabled = false
@@ -67,8 +66,8 @@ func _on_collect_button_pressed() -> void:
 		collectBtnCd.wait_time = globals.manualCollectCD * globals.manualCollectCDMult
 		collectBtnCd.start()
 	else:
-		globals.GP += globals.manualCollect * globals.manualCollectMult
-		globals.manualCollectCounter += 1
+		globals.GP.plusEquals(globals.manualCollect.multiply(globals.manualCollectMult))
+		globals.manualCollectCounter.plusEquals(1)
 		collectBtnCd.wait_time = globals.manualCollectCD * globals.manualCollectCDMult
 		collectBtnCd.start()
 
